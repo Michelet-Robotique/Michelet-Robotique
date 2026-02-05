@@ -33,18 +33,18 @@ const LoadingFallback = styled.div`
 const World: React.FC = () => {
     return (
         <CanvasContainer>
-            <Canvas
-                gl={{
-                    antialias: true,
-                    alpha: false,
-                    powerPreference: 'high-performance',
-                    stencil: false,
-                    depth: true,
-                }}
-                dpr={[1, 2]}
-                style={{ background: '#000000' }}
-            >
-                <Suspense fallback={<LoadingFallback>Initialisation de la scène...</LoadingFallback>}>
+            <Suspense fallback={<LoadingFallback>Initialisation de la scène...</LoadingFallback>}>
+                <Canvas
+                    gl={{
+                        antialias: true,
+                        alpha: false,
+                        powerPreference: 'high-performance',
+                        stencil: false,
+                        depth: true,
+                    }}
+                    dpr={[1, 2]}
+                    style={{ background: '#000000' }}
+                >
                     {/* Camera on virtual rail */}
                     <CameraRig startZ={20} endZ={-40} />
 
@@ -85,9 +85,9 @@ const World: React.FC = () => {
                     ))}
 
                     {/* Post-processing effects */}
-                    <Effects />
-                </Suspense>
-            </Canvas>
+                    {/* <Effects /> */}
+                </Canvas>
+            </Suspense>
         </CanvasContainer>
     );
 };
