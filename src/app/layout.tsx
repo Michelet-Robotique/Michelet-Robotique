@@ -13,6 +13,8 @@ export const viewport = {
     themeColor: '#000000',
 };
 
+import StyledComponentsRegistry from '@/lib/registry';
+
 export default function RootLayout({
     children,
 }: {
@@ -28,7 +30,11 @@ export default function RootLayout({
                     rel="stylesheet"
                 />
             </head>
-            <body>{children}</body>
+            <body>
+                <StyledComponentsRegistry>
+                    {children}
+                </StyledComponentsRegistry>
+            </body>
         </html>
     );
 }
