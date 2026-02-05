@@ -30,6 +30,27 @@ const LoadingFallback = styled.div`
   text-transform: uppercase;
 `;
 
+const WorldContent: React.FC = () => {
+    return (
+        <>
+            <CameraRig startZ={20} endZ={-40} />
+            <ambientLight intensity={0.05} />
+            <pointLight position={[-15, 10, 15]} color="#00d4ff" intensity={0.8} distance={50} />
+            <pointLight position={[15, -10, 5]} color="#ff6b00" intensity={0.6} distance={50} />
+            <pointLight position={[0, 15, -20]} color="#9c27b0" intensity={0.4} distance={60} />
+            <Starfield count={2000} radius={35} depth={120} />
+            {projects.map((project, index) => (
+                <ProjectMonolith
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    totalProjects={projects.length}
+                />
+            ))}
+        </>
+    );
+};
+
 const World: React.FC = () => {
     return (
         <CanvasContainer>
@@ -37,55 +58,15 @@ const World: React.FC = () => {
                 <Canvas
                     gl={{
                         antialias: true,
-                        alpha: false,
+                        alpha: true,
                         powerPreference: 'high-performance',
                         stencil: false,
                         depth: true,
                     }}
-                    dpr={[1, 2]}
-                    style={{ background: '#000000' }}
+                    dpr={1}
+                    camera={{ position: [0, 0, 20], fov: 75 }}
                 >
-                    {/* Camera on virtual rail */}
-                    <CameraRig startZ={20} endZ={-40} />
-
-                    {/* Ambient lighting - very dim */}
-                    <ambientLight intensity={0.05} />
-
-                    {/* Dramatic positioned lights */}
-                    <pointLight
-                        position={[-15, 10, 15]}
-                        color="#00d4ff"
-                        intensity={0.8}
-                        distance={50}
-                    />
-                    <pointLight
-                        position={[15, -10, 5]}
-                        color="#ff6b00"
-                        intensity={0.6}
-                        distance={50}
-                    />
-                    <pointLight
-                        position={[0, 15, -20]}
-                        color="#9c27b0"
-                        intensity={0.4}
-                        distance={60}
-                    />
-
-                    {/* Starfield particle system */}
-                    <Starfield count={2000} radius={35} depth={120} />
-
-                    {/* Project monoliths */}
-                    {projects.map((project, index) => (
-                        <ProjectMonolith
-                            key={project.id}
-                            project={project}
-                            index={index}
-                            totalProjects={projects.length}
-                        />
-                    ))}
-
-                    {/* Post-processing effects */}
-                    {/* <Effects /> */}
+                    <WorldContent />
                 </Canvas>
             </Suspense>
         </CanvasContainer>
