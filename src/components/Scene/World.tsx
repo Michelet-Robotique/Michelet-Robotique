@@ -44,7 +44,7 @@ const World: React.FC = () => {
                 dpr={[1, 2]}
                 style={{ background: '#000000' }}
             >
-                <Suspense fallback={null}>
+                <Suspense fallback={<LoadingFallback>Initialisation de la scène...</LoadingFallback>}>
                     {/* Camera on virtual rail */}
                     <CameraRig startZ={20} endZ={-40} />
 
@@ -85,7 +85,7 @@ const World: React.FC = () => {
                     ))}
 
                     {/* Post-processing effects */}
-                    {/* <Effects /> */}
+                    <Effects />
                 </Suspense>
             </Canvas>
         </CanvasContainer>
