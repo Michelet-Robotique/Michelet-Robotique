@@ -158,8 +158,9 @@ const ProjectMonolith: React.FC<ProjectMonolithProps> = ({
                 color="#ffffff"
                 anchorX="center"
                 anchorY="middle"
-                children={project.title}
-            />
+            >
+                {project.title}
+            </Text>
 
             {/* Description */}
             <Text
@@ -168,8 +169,9 @@ const ProjectMonolith: React.FC<ProjectMonolithProps> = ({
                 color="#aaaaaa"
                 anchorX="center"
                 anchorY="middle"
-                children={project.description}
-            />
+            >
+                {project.description}
+            </Text>
 
             {/* Point lights for dramatic effect */}
             <pointLight

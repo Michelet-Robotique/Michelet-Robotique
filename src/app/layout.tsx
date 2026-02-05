@@ -5,7 +5,11 @@ export const metadata: Metadata = {
     description: 'Portfolio immersif présentant les créations digitales innovantes de MICHELET ROBOTIQUE.',
     keywords: ['portfolio', '3D', 'WebGL', 'immersive', 'design', 'creative', 'development', 'robotique'],
     authors: [{ name: 'MICHELET ROBOTIQUE' }],
-    viewport: 'width=device-width, initial-scale=1',
+};
+
+export const viewport = {
+    width: 'device-width',
+    initialScale: 1,
     themeColor: '#000000',
 };
 
