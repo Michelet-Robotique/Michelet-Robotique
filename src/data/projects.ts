@@ -28,4 +28,11 @@ export const projects: Project[] = [
         imageUrl: "/assets/project3.jpg",
         link: "#"
     },
+    {
+        id: 4,
+        title: "Plus de projets à venir !",
+        description: "Le club de robotique ne s'arrête jamais. Restez à l'écoute pour nos prochaines créations !",
+        imageUrl: "/assets/project4.jpg",
+        link: "#"
+    },
 ];

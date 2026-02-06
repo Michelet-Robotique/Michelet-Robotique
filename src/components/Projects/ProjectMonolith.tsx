@@ -40,16 +40,16 @@ const ProjectMonolith: React.FC<ProjectMonolithProps> = ({
 
         // Gradient background
         const gradient = ctx.createLinearGradient(0, 0, 512, 384);
-        if (index === 0) {
-            gradient.addColorStop(0, '#1a237e');
-            gradient.addColorStop(1, '#4a148c');
-        } else if (index === 1) {
-            gradient.addColorStop(0, '#b71c1c');
-            gradient.addColorStop(1, '#e65100');
-        } else {
-            gradient.addColorStop(0, '#004d40');
-            gradient.addColorStop(1, '#00acc1');
-        }
+        const colorSchemes = [
+            { start: '#1a237e', end: '#4a148c' }, // 0: Blue/Indigo
+            { start: '#b71c1c', end: '#e65100' }, // 1: Red/Orange
+            { start: '#004d40', end: '#00acc1' }, // 2: Green/Teal
+            { start: '#4a148c', end: '#c2185b' }  // 3: Purple/Pink
+        ];
+        const scheme = colorSchemes[index % colorSchemes.length];
+
+        gradient.addColorStop(0, scheme.start);
+        gradient.addColorStop(1, scheme.end);
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, 512, 384);
 

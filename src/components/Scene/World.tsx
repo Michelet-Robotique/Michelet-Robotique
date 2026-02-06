@@ -34,7 +34,7 @@ const LoadingFallback = styled.div`
 const WorldContent: React.FC = () => {
     return (
         <>
-            <CameraRig startZ={20} endZ={-70} />
+            <CameraRig startZ={20} endZ={-100} />
             <ambientLight intensity={0.05} />
             <pointLight position={[-15, 10, 15]} color="#00d4ff" intensity={0.8} distance={50} />
             <pointLight position={[15, -10, 5]} color="#ff6b00" intensity={0.6} distance={50} />
