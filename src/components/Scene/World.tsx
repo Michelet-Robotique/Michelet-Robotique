@@ -39,7 +39,7 @@ const WorldContent: React.FC = () => {
             <pointLight position={[-15, 10, 15]} color="#00d4ff" intensity={0.8} distance={50} />
             <pointLight position={[15, -10, 5]} color="#ff6b00" intensity={0.6} distance={50} />
             <pointLight position={[0, 15, -20]} color="#9c27b0" intensity={0.4} distance={60} />
-            <Starfield count={2000} radius={35} depth={120} />
+            <Starfield count={3000} radius={45} depth={150} />
             <Spaceship />
             {projects.map((project, index) => (
                 <ProjectMonolith

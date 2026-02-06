@@ -4,23 +4,39 @@ import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text, Float } from '@react-three/drei';
 import * as THREE from 'three';
+import { useScroll } from '@/context/ScrollContext';
 
 const Spaceship: React.FC = () => {
     const groupRef = useRef<THREE.Group>(null);
+    const { progress } = useScroll();
+
+    // Scroll range based on World.tsx
+    const startZ = 20;
+    const endZ = -100;
 
     useFrame((state) => {
         if (!groupRef.current) return;
 
-        // Dynamic movement: orbiting slightly and tilting
-        const t = state.clock.elapsedTime * 0.5;
-        groupRef.current.position.x = Math.sin(t) * 2 + 5;
-        groupRef.current.position.y = Math.cos(t * 0.5) * 1 + 2;
-        groupRef.current.rotation.z = Math.sin(t) * 0.2;
-        groupRef.current.rotation.y = Math.PI + Math.cos(t) * 0.1;
+        // Sync Z with camera progress, maintaining a forward offset
+        const targetZ = THREE.MathUtils.lerp(startZ, endZ, progress) - 8;
+
+        groupRef.current.position.z = THREE.MathUtils.lerp(
+            groupRef.current.position.z,
+            targetZ,
+            0.1
+        );
+
+        // Fixed position in view with floating animation
+        groupRef.current.position.x = 4.2;
+        groupRef.current.position.y = 1.8 + Math.sin(state.clock.elapsedTime * 1.5) * 0.2;
+
+        // Orientation
+        groupRef.current.rotation.y = Math.PI - 0.4;
+        groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.5) * 0.05;
     });
 
     return (
-        <group ref={groupRef} position={[5, 2, 10]} scale={0.5}>
+        <group ref={groupRef} scale={0.4}>
             <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
                 {/* Body */}
                 <mesh castShadow>
@@ -62,15 +78,17 @@ const Spaceship: React.FC = () => {
                     <meshStandardMaterial color="#00d4ff" transparent opacity={0.6} metalness={1} roughness={0} />
                 </mesh>
 
-                {/* Schedule Text */}
-                <group position={[0, 1.5, 1]}>
+                {/* Schedule Text - Re-positioned for permanent visibility */}
+                <group position={[-2, 1, 0]} rotation={[0, 0.4, 0]}>
                     <Text
-                        fontSize={0.3}
+                        fontSize={0.25}
                         color="#00d4ff"
-                        anchorX="center"
+                        anchorX="right"
                         anchorY="middle"
-                        maxWidth={4}
-                        textAlign="center"
+                        maxWidth={3}
+                        textAlign="right"
+                        outlineWidth={0.02}
+                        outlineColor="#000000"
                     >
                         CLUB ROBOTIQUE
                         {"\n"}
@@ -78,11 +96,6 @@ const Spaceship: React.FC = () => {
                         {"\n"}
                         16h - 18h
                     </Text>
-                    {/* Text Glow effect */}
-                    <mesh position={[0, 0, -0.01]}>
-                        <planeGeometry args={[4, 2]} />
-                        <meshBasicMaterial color="#00d4ff" transparent opacity={0.1} />
-                    </mesh>
                 </group>
 
                 {/* Engine Glow */}
