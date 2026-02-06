@@ -7,6 +7,7 @@ import CameraRig from './CameraRig';
 import Starfield from './Starfield';
 import Effects from './Effects';
 import ProjectMonolith from '@/components/Projects/ProjectMonolith';
+import Spaceship from './Spaceship';
 import { projects } from '@/data/projects';
 
 const CanvasContainer = styled.div`
@@ -39,6 +40,7 @@ const WorldContent: React.FC = () => {
             <pointLight position={[15, -10, 5]} color="#ff6b00" intensity={0.6} distance={50} />
             <pointLight position={[0, 15, -20]} color="#9c27b0" intensity={0.4} distance={60} />
             <Starfield count={2000} radius={35} depth={120} />
+            <Spaceship />
             {projects.map((project, index) => (
                 <ProjectMonolith
                     key={project.id}
