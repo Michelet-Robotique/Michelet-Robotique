@@ -21,4 +21,11 @@ export const projects: Project[] = [
         imageUrl: "/assets/project2.jpg",
         link: "#"
     }
+        {
+        id: 3,
+        title: "Projet Karting",
+        description: "Kart qui roulera",
+        imageUrl: "/assets/project3.jpg",
+        link: "#"
+    },
 ];
