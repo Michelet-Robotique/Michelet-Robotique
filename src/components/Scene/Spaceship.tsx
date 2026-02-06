@@ -18,7 +18,7 @@ const Spaceship: React.FC = () => {
         if (!groupRef.current) return;
 
         // Sync Z with camera progress, maintaining a forward offset
-        const targetZ = THREE.MathUtils.lerp(startZ, endZ, progress) - 8;
+        const targetZ = THREE.MathUtils.lerp(startZ, endZ, progress) - 10;
 
         groupRef.current.position.z = THREE.MathUtils.lerp(
             groupRef.current.position.z,
@@ -26,17 +26,17 @@ const Spaceship: React.FC = () => {
             0.1
         );
 
-        // Fixed position in view with floating animation
-        groupRef.current.position.x = 4.2;
-        groupRef.current.position.y = 1.8 + Math.sin(state.clock.elapsedTime * 1.5) * 0.2;
+        // Framing: Slightly more to the right and adjusted height
+        groupRef.current.position.x = 4.6;
+        groupRef.current.position.y = 1.6 + Math.sin(state.clock.elapsedTime * 1.5) * 0.15;
 
-        // Orientation
-        groupRef.current.rotation.y = Math.PI - 0.4;
-        groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.5) * 0.05;
+        // Orientation: Better forward-looking angle
+        groupRef.current.rotation.y = Math.PI - 0.35;
+        groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.5) * 0.03;
     });
 
     return (
-        <group ref={groupRef} scale={0.4}>
+        <group ref={groupRef} scale={0.32}>
             <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
                 {/* Body */}
                 <mesh castShadow>
@@ -78,14 +78,14 @@ const Spaceship: React.FC = () => {
                     <meshStandardMaterial color="#00d4ff" transparent opacity={0.6} metalness={1} roughness={0} />
                 </mesh>
 
-                {/* Schedule Text - Re-positioned for permanent visibility */}
-                <group position={[-2, 1, 0]} rotation={[0, 0.4, 0]}>
+                {/* Schedule Text - Fixed mirroring by rotating 180 degrees (Math.PI) */}
+                <group position={[-5, 1.2, 0.5]} rotation={[0, Math.PI + 0.35, 0]}>
                     <Text
-                        fontSize={0.25}
+                        fontSize={0.4}
                         color="#00d4ff"
-                        anchorX="right"
+                        anchorX="left"
                         anchorY="middle"
-                        maxWidth={3}
+                        maxWidth={4}
                         textAlign="right"
                         outlineWidth={0.02}
                         outlineColor="#000000"
