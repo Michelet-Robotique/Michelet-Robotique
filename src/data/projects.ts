@@ -23,8 +23,8 @@ export const projects: Project[] = [
     },
     {
         id: 3,
-        title: "Projet Karting",
-        description: "Kart qui roulera",
+        title: "Projet Karting Électrique",
+        description: "Conception et réalisation d'un kart électrique, avec une motorisation optimisée.",
         imageUrl: "/assets/project3.jpg",
         link: "#"
     },

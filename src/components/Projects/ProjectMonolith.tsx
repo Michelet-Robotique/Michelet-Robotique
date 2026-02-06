@@ -43,9 +43,12 @@ const ProjectMonolith: React.FC<ProjectMonolithProps> = ({
         if (index === 0) {
             gradient.addColorStop(0, '#1a237e');
             gradient.addColorStop(1, '#4a148c');
-        } else {
+        } else if (index === 1) {
             gradient.addColorStop(0, '#b71c1c');
             gradient.addColorStop(1, '#e65100');
+        } else {
+            gradient.addColorStop(0, '#004d40');
+            gradient.addColorStop(1, '#00acc1');
         }
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, 512, 384);
