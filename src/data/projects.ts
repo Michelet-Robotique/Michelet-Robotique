@@ -20,8 +20,8 @@ export const projects: Project[] = [
         description: "Robot poubelle qui intercepte les déchets en vol",
         imageUrl: "/assets/project2.jpg",
         link: "#"
-    }
-        {
+    },
+    {
         id: 3,
         title: "Projet Karting",
         description: "Kart qui roulera",
