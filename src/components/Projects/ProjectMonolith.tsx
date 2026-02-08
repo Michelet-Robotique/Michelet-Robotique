@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useMemo, useState } from 'react';
-import { useFrame, useLoader } from '@react-three/fiber';
+import { useFrame, useLoader, useThree } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 import * as THREE from 'three';
 import { useScroll } from '@/context/ScrollContext';
@@ -23,6 +23,8 @@ const ProjectMonolith: React.FC<ProjectMonolithProps> = ({
     const materialRef = useRef<THREE.ShaderMaterial>(null);
     const [hovered, setHovered] = useState(false);
     const { progress } = useScroll();
+    const { size } = useThree();
+    const isMobile = size.width < 768;
 
     // Calculate position based on index
     const zPosition = useMemo(() => {
@@ -118,7 +120,8 @@ const ProjectMonolith: React.FC<ProjectMonolithProps> = ({
 
         // Scale based on proximity
         const proximity = 1 - Math.abs(progress - (projectStart + projectEnd) / 2) * 2;
-        const scale = THREE.MathUtils.clamp(proximity * 1.2, 0.3, 1);
+        const baseScale = isMobile ? 0.6 : 1;
+        const scale = THREE.MathUtils.clamp(proximity * 1.2, 0.3, 1) * baseScale;
 
         groupRef.current.scale.setScalar(THREE.MathUtils.lerp(
             groupRef.current.scale.x,
@@ -156,8 +159,8 @@ const ProjectMonolith: React.FC<ProjectMonolithProps> = ({
 
             {/* Title */}
             <Text
-                position={[0, -3.8, 0.1]}
-                fontSize={0.6}
+                position={[0, isMobile ? -2.5 : -3.8, 0.1]}
+                fontSize={isMobile ? 0.45 : 0.6}
                 color="#ffffff"
                 anchorX="center"
                 anchorY="middle"
@@ -167,11 +170,13 @@ const ProjectMonolith: React.FC<ProjectMonolithProps> = ({
 
             {/* Description */}
             <Text
-                position={[0, -4.5, 0.1]}
-                fontSize={0.25}
+                position={[0, isMobile ? -3.0 : -4.5, 0.1]}
+                fontSize={isMobile ? 0.2 : 0.25}
                 color="#aaaaaa"
                 anchorX="center"
                 anchorY="middle"
+                maxWidth={isMobile ? 6 : 10}
+                textAlign="center"
             >
                 {project.description}
             </Text>

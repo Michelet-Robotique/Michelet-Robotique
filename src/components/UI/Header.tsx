@@ -14,6 +14,10 @@ const HeaderContainer = styled.header`
   padding: 2rem 3rem;
   z-index: 100;
   pointer-events: none;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1.5rem;
+  }
 `;
 
 const Logo = styled.div`
@@ -33,6 +37,11 @@ const Logo = styled.div`
   }
   
   transition: text-shadow 0.3s ease;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+  }
 `;
 
 const MenuButton = styled.button`

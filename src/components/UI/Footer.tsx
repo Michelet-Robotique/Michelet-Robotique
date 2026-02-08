@@ -14,6 +14,12 @@ const FooterContainer = styled.footer`
   padding: 1.5rem 3rem;
   z-index: 100;
   pointer-events: none;
+
+  @media (max-width: 768px) {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 `;
 
 const CreditText = styled.p`
@@ -28,6 +34,12 @@ const CreditText = styled.p`
     color: rgba(0, 212, 255, 0.7);
     font-weight: 500;
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    order: 2;
+  }
 `;
 
 const ScrollHint = styled.div`
@@ -41,6 +53,14 @@ const ScrollHint = styled.div`
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+
+  @media (max-width: 768px) {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    font-size: 0.6rem;
+    order: 1;
+  }
 `;
 
 const ScrollLine = styled.div`
@@ -52,6 +72,10 @@ const ScrollLine = styled.div`
   @keyframes pulse {
     0%, 100% { opacity: 0.4; }
     50% { opacity: 1; }
+  }
+
+  @media (max-width: 768px) {
+    width: 20px;
   }
 `;
 

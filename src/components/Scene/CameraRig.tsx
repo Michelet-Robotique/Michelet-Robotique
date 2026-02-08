@@ -18,10 +18,19 @@ const CameraRig: React.FC<CameraRigProps> = ({
     const cameraRef = useRef<THREE.PerspectiveCamera>(null);
     const { progress } = useScroll();
     const currentZ = useRef(startZ);
-    const { set } = useThree();
+    const { set, size } = useThree();
+    const isMobile = size.width < 768;
+    const aspect = size.width / size.height;
 
     useFrame(() => {
         if (!cameraRef.current) return;
+
+        // Adjust FOV for mobile (portrait) to see more of the scene vertically/horizontally
+        const targetFov = aspect < 1 ? 90 : 75;
+        if (cameraRef.current.fov !== targetFov) {
+            cameraRef.current.fov = targetFov;
+            cameraRef.current.updateProjectionMatrix();
+        }
 
         // Target Z position based on scroll progress
         const targetZ = THREE.MathUtils.lerp(startZ, endZ, progress);
@@ -36,8 +45,9 @@ const CameraRig: React.FC<CameraRigProps> = ({
         cameraRef.current.position.z = currentZ.current;
 
         // Subtle camera movement based on progress
-        const wobbleX = Math.sin(progress * Math.PI * 2) * 0.3;
-        const wobbleY = Math.cos(progress * Math.PI * 2) * 0.2;
+        // Reduced for mobile to keep items in frame
+        const wobbleX = Math.sin(progress * Math.PI * 2) * (isMobile ? 0.15 : 0.3);
+        const wobbleY = Math.cos(progress * Math.PI * 2) * (isMobile ? 0.1 : 0.2);
         cameraRef.current.position.x = wobbleX;
         cameraRef.current.position.y = wobbleY;
 

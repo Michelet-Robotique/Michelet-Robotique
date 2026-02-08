@@ -21,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
     color: #ffffff;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    touch-action: manipulation;
     
     /* Hide scrollbar */
     scrollbar-width: none;

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { Text, Float } from '@react-three/drei';
 import * as THREE from 'three';
 import { useScroll } from '@/context/ScrollContext';
@@ -9,6 +9,8 @@ import { useScroll } from '@/context/ScrollContext';
 const Spaceship: React.FC = () => {
     const groupRef = useRef<THREE.Group>(null);
     const { progress } = useScroll();
+    const { size } = useThree();
+    const isMobile = size.width < 768;
 
     // Scroll range based on World.tsx
     const startZ = 20;
@@ -27,16 +29,18 @@ const Spaceship: React.FC = () => {
         );
 
         // Framing: Slightly more to the right and adjusted height
-        groupRef.current.position.x = 4.6;
-        groupRef.current.position.y = 1.6 + Math.sin(state.clock.elapsedTime * 1.5) * 0.15;
+        // Center on mobile and put it HIGHER above the project cards
+        groupRef.current.position.x = isMobile ? 0 : 4.6;
+        groupRef.current.position.y = (isMobile ? 5.0 : 1.6) + Math.sin(state.clock.elapsedTime * 1.5) * 0.15;
 
         // Orientation: Better forward-looking angle
-        groupRef.current.rotation.y = Math.PI - 0.35;
+        // On mobile, point it more straight forward since it's centered
+        groupRef.current.rotation.y = isMobile ? Math.PI : Math.PI - 0.35;
         groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.5) * 0.03;
     });
 
     return (
-        <group ref={groupRef} scale={0.32}>
+        <group ref={groupRef} scale={isMobile ? 0.45 : 0.32}>
             <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
                 {/* Body */}
                 <mesh castShadow>
@@ -79,15 +83,16 @@ const Spaceship: React.FC = () => {
                 </mesh>
 
                 {/* Schedule Text - Fixed mirroring by rotating 180 degrees (Math.PI) */}
-                <group position={[-5, 1.2, 0.5]} rotation={[0, Math.PI + 0.35, 0]}>
+                {/* Repositioned text for mobile to be more central or better integrated */}
+                <group position={[isMobile ? 0 : -5, isMobile ? -3.5 : 1.2, 0.5]} rotation={[0, Math.PI + (isMobile ? 0 : 0.35), 0]}>
                     <Text
-                        fontSize={0.4}
+                        fontSize={isMobile ? 0.7 : 0.6}
                         color="#00d4ff"
-                        anchorX="left"
+                        anchorX={isMobile ? "center" : "left"}
                         anchorY="middle"
-                        maxWidth={4}
-                        textAlign="right"
-                        outlineWidth={0.02}
+                        maxWidth={isMobile ? 8 : 6}
+                        textAlign={isMobile ? "center" : "right"}
+                        outlineWidth={0.03}
                         outlineColor="#000000"
                     >
                         CLUB ROBOTIQUE
